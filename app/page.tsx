@@ -1,23 +1,24 @@
 import Scene from '@/components/scene'
 import { Button } from '@/components/ui/button'
+import { Brand } from '@/components/brand'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-r from-[#002D62] from-[0%] via-[#002D62] via-[40%] to-[#CE1126] to-[60%] relative overflow-hidden">
+    <main className="h-screen bg-gradient-to-r from-[#002D62] from-[0%] via-[#002D62] via-[40%] to-[#CE1126] to-[60%] relative overflow-hidden">
       <div className="absolute inset-0">
         <Scene />
       </div>
-      <div className="relative z-10 container mx-auto px-4 py-4 flex flex-col vh-full vw-full pointer-events-none">
-        <header className="flex justify-between items-center">
-          <div className="text-white text-2xl font-bold">Chele</div>
+      <div className="relative z-10 h-[96vh] mx-auto px-8 flex flex-col justify-between pointer-events-none">
+        <header className="flex justify-between items-center pt-8">
+          <Brand />
           <Button variant="outline" className="pointer-events-auto">
             Connect Wallet
           </Button>
         </header>
-        <div className="flex-grow flex items-end pb-20">
+        <div className="flex flex-col justify-end flex-grow mb-25">
           <div className="max-w-2xl landing-caption">
             <h1 
-              className="text-6xl font-semibold text-white mb-6 main-title" 
+              className="text-7xl font-semibold text-white mb-8 main-title leading-tight" 
               style={{ 
                 fontFamily: 'BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif'
               }}
@@ -25,7 +26,7 @@ export default function Home() {
               Your Cryptocurrency Eco System
             </h1>
             <h2 
-              className="text-xl text-white/80 mb-10" 
+              className="text-2xl text-white/80 mb-12" 
               style={{ 
                 fontFamily: '"Cabin Variable", sans-serif',
                 fontWeight: 300
@@ -33,14 +34,14 @@ export default function Home() {
             >
               Unlocking Crypto Wealth Together: A Shared Journey to Financial Freedom through Our Affordable ICO.
             </h2>
-            <div className="flex gap-4 pointer-events-auto">
+            <div className="flex gap-6 pointer-events-auto">
               <Button 
-                className="bg-gradient-to-r from-[#002D62] to-[#CE1126] text-white hover:opacity-90 h-12 px-8 text-lg font-bold"
+                className="bg-gradient-to-r from-[#002D62] to-[#CE1126] text-white hover:opacity-90 h-14 px-10 text-lg font-bold"
               >
                 Get Started
               </Button>
               <Button 
-                className="bg-gradient-to-r from-[#002D62] to-[#CE1126] text-white hover:opacity-90 h-12 px-8 text-lg font-bold"
+                className="bg-gradient-to-r from-[#002D62] to-[#CE1126] text-white hover:opacity-90 h-14 px-10 text-lg font-bold"
               >
                 Learn More
               </Button>

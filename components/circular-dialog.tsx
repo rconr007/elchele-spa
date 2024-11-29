@@ -1,4 +1,5 @@
 import { X } from 'lucide-react'
+import { cn } from "@/lib/utils"
 
 interface CircularDialogProps {
   title: string
@@ -11,7 +12,10 @@ export function CircularDialog({ title, onClose, children }: CircularDialogProps
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="bg-black/50 absolute inset-0 animate-fade-in" onClick={onClose}></div>
       <div 
-        className="rounded-full w-[800px] h-[800px] relative z-10 overflow-hidden flex flex-col bg-black/90 animate-dialog-expand"
+        className={cn(
+          "rounded-full w-[800px] h-[800px] relative z-10 overflow-hidden flex flex-col bg-black/90 animate-dialog-expand",
+          "border-[10px] border-[#B97A57]"
+        )}
         style={{
           backgroundImage: 'url(/backgroundIndians.svg)',
           backgroundSize: 'cover',
