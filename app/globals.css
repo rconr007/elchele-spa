@@ -6,8 +6,21 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-:host .max-w-2xl {
+.max-w-2xl {
   max-width: 40rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.vh-full {
+  height: 100vh
+}
+
+.vw-full {
+  width: 100vh
 }
 
 @layer utilities {

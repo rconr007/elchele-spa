@@ -7,7 +7,7 @@ export default function Home() {
       <div className="absolute inset-0">
         <Scene />
       </div>
-      <div className="relative z-10 container mx-auto px-4 py-16 flex flex-col h-full pointer-events-none">
+      <div className="relative z-10 container mx-auto px-4 py-4 flex flex-col vh-full vw-full pointer-events-none">
         <header className="flex justify-between items-center">
           <div className="text-white text-2xl font-bold">Chele</div>
           <Button variant="outline" className="pointer-events-auto">
