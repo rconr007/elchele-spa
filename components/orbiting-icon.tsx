@@ -9,9 +9,10 @@ interface OrbitingIconProps {
   radius: number
   icon: 'Token' | 'ICO' | 'Roadmap'
   onClick: () => void
+  isSelected?: boolean
 }
 
-export function OrbitingIcon({ rotation, angle, radius, icon, onClick }: OrbitingIconProps) {
+export function OrbitingIcon({ rotation, angle, radius, icon, onClick, isSelected }: OrbitingIconProps) {
   const groupRef = useRef<THREE.Group>(null)
 
   useEffect(() => {
@@ -33,17 +34,33 @@ export function OrbitingIcon({ rotation, angle, radius, icon, onClick }: Orbitin
     }
   }
 
+  const getIconStyles = () => {
+    const baseStyles = "bg-white/10 backdrop-blur-sm rounded-full p-2 cursor-pointer hover:bg-white/20 transition-colors"
+    switch (icon) {
+      case 'Token':
+        return `${baseStyles} ${isSelected ? 'selected-blue' : 'glow-blue'}`
+      case 'ICO':
+        return `${baseStyles} ${isSelected ? 'selected-green' : 'glow-green'}`
+      case 'Roadmap':
+        return `${baseStyles} ${isSelected ? 'selected-purple' : 'glow-purple'}`
+    }
+  }
+
   return (
     <group ref={groupRef}>
       <Html center>
-        <div 
-          className="bg-white/10 backdrop-blur-sm rounded-full p-2 cursor-pointer hover:bg-white/20 transition-colors"
-          onClick={onClick}
-        >
-          {getIcon()}
+        <div className="flex flex-col items-center">
+          <div 
+            className={getIconStyles()}
+            onClick={onClick}
+          >
+            {getIcon()}
+          </div>
+          <span className="text-xs font-bold mt-2 uppercase tracking-wider no-select text-white">
+            {icon}
+          </span>
         </div>
       </Html>
     </group>
   )
 }
-
