@@ -6,7 +6,6 @@ import { Coin } from './coin'
 import { OrbitingIcon } from './orbiting-icon'
 import { CircularDialog } from './circular-dialog'
 import { Suspense, useState, useEffect, useCallback, useRef, forwardRef, useImperativeHandle } from 'react'
-import * as THREE from 'three'
 
 type DialogType = 'Token' | 'ICO' | 'Roadmap' | 'GetStarted' | 'LearnMore' | 'ConnectWallet' | null
 
@@ -80,11 +79,14 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
   }, [isDragging, targetRotation, rotation])
 
   useEffect(() => {
-    window.addEventListener('mouseup', handleMouseUp)
-    window.addEventListener('mousemove', handleMouseMove as any)
+    const handleGlobalMouseUp = () => handleMouseUp()
+    const handleGlobalMouseMove = (e: MouseEvent) => handleMouseMove(e as unknown as React.MouseEvent)
+
+    window.addEventListener('mouseup', handleGlobalMouseUp)
+    window.addEventListener('mousemove', handleGlobalMouseMove)
     return () => {
-      window.removeEventListener('mouseup', handleMouseUp)
-      window.removeEventListener('mousemove', handleMouseMove as any)
+      window.removeEventListener('mouseup', handleGlobalMouseUp)
+      window.removeEventListener('mousemove', handleGlobalMouseMove)
     }
   }, [handleMouseUp, handleMouseMove])
 
@@ -140,7 +142,7 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
           {activeDialog === 'ICO' && (
             <div>
               <h3 className="text-2xl font-bold mb-4 no-select">ICO Details</h3>
-              <p className="text-lg mb-6 no-select">Join our Initial Coin Offering to be part of the next generation of digital finance. Don't miss this opportunity to get in early on a revolutionary project.</p>
+              <p className="text-lg mb-6 no-select">Join our Initial Coin Offering to be part of the next generation of digital finance. Do not miss this opportunity to get in early on a revolutionary project.</p>
               <ul className="list-disc pl-5 space-y-3 text-lg no-select">
                 <li>Start Date: August 1, 2023</li>
                 <li>End Date: September 30, 2023</li>
@@ -157,7 +159,7 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
           {activeDialog === 'Roadmap' && (
             <div>
               <h3 className="text-2xl font-bold mb-4 no-select">Project Roadmap</h3>
-              <p className="text-lg mb-6 no-select">Explore our ambitious plans for the future of our cryptocurrency project. We're committed to continuous innovation and expansion.</p>
+              <p className="text-lg mb-6 no-select">Explore our ambitious plans for the future of our cryptocurrency project. We are committed to continuous innovation and expansion.</p>
               <ul className="list-disc pl-5 space-y-3 text-lg no-select">
                 <li>Q3 2023: Token Launch and ICO</li>
                 <li>Q4 2023: Major Exchange Listings and Liquidity Provision</li>
@@ -237,5 +239,7 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
     </div>
   )
 })
+
+Scene.displayName = 'Scene'
 
 export default Scene

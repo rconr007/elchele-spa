@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { X } from 'lucide-react'
 
 interface ButtonDialogProps {
@@ -19,7 +18,7 @@ export function ButtonDialog({ type, isOpen, onClose }: ButtonDialogProps) {
           title: 'Get Started',
           content: (
             <div className="space-y-4">
-              <p>Welcome to CHELE! Here's how to get started:</p>
+              <p>Welcome to CHELE! Here&apos;s how to get started:</p>
               <ol className="list-decimal list-inside space-y-2">
                 <li>Create a Web3 wallet (like MetaMask)</li>
                 <li>Connect your wallet to our platform</li>
@@ -51,17 +50,14 @@ export function ButtonDialog({ type, isOpen, onClose }: ButtonDialogProps) {
           title: 'Connect Wallet',
           content: (
             <div className="space-y-4">
-              <p>Connect your Web3 wallet to access:</p>
+              <p>Connect your Web3 wallet to access all features:</p>
               <ul className="list-disc list-inside space-y-2">
-                <li>Token purchases</li>
-                <li>Portfolio management</li>
-                <li>Exclusive features</li>
-                <li>Community rewards</li>
+                <li>MetaMask</li>
+                <li>WalletConnect</li>
+                <li>Coinbase Wallet</li>
+                <li>Trust Wallet</li>
               </ul>
-              <p>We support multiple wallet providers including MetaMask, WalletConnect, and more.</p>
-              <div className="mt-4 p-4 bg-yellow-500/10 rounded-lg">
-                <p className="text-yellow-500 text-sm">Note: Please make sure your wallet is properly configured before connecting.</p>
-              </div>
+              <p className="mt-4">Make sure you have sufficient funds for gas fees.</p>
             </div>
           )
         }
@@ -71,19 +67,19 @@ export function ButtonDialog({ type, isOpen, onClose }: ButtonDialogProps) {
   const content = getContent()
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-      <div className="bg-gray-900 rounded-xl max-w-lg w-full p-6 relative shadow-2xl border border-gray-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="relative w-full max-w-lg rounded-lg bg-white p-6">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
         >
-          <X size={20} />
+          <X size={24} />
         </button>
-        <h2 className="text-2xl font-bold text-white mb-4">{content.title}</h2>
-        <div className="text-gray-300">
-          {content.content}
-        </div>
+        <h2 className="mb-4 text-2xl font-bold">{content?.title}</h2>
+        {content?.content}
       </div>
     </div>
   )
 }
+
+ButtonDialog.displayName = 'ButtonDialog'
