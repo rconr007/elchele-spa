@@ -7,17 +7,10 @@ import { TickerBanner } from '@/components/ticker-banner'
 import { FloatingOrbs } from '@/components/floating-orbs'
 import { useRef } from 'react'
 
-type DialogType = 'Token' | 'ICO' | 'Roadmap' | 'GetStarted' | 'LearnMore' | 'ConnectWallet' | null
+type DialogType = 'Token' | 'ICO' | 'Roadmap' | 'GetStarted' | 'LearnMore' | 'ConnectWallet' | 'Cayacoa' | 'Boechio' | 'Guarionex' | null
 
 export default function Home() {
   const sceneRef = useRef<SceneRef>(null)
-
-  const handleDialog = (type: DialogType) => {
-    console.log('Handling dialog:', type)
-    if (sceneRef.current) {
-      sceneRef.current.setActiveDialog(type)
-    }
-  }
 
   return (
     <main className="h-screen bg-gradient-to-r from-[#002D62] from-[0%] via-[#002D62] via-[40%] to-[#CE1126] to-[60%] relative overflow-hidden">
@@ -64,7 +57,7 @@ export default function Home() {
         </div>
       </div>
 
-      <FloatingOrbs onOrbClick={(dialogType) => sceneRef.current?.setActiveDialog(dialogType)} />
+      <FloatingOrbs onOrbClick={(dialogType: DialogType) => sceneRef.current?.setActiveDialog(dialogType)} />
       <TickerBanner text="WELCOME TO CHELE • THE FUTURE OF CRYPTOCURRENCY • JOIN THE REVOLUTION • SECURE • FAST • RELIABLE • " />
     </main>
   )

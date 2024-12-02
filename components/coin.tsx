@@ -8,9 +8,10 @@ import * as THREE from 'three'
 interface CoinProps {
   rotation: number
   position: [number, number, number]
+  setIsDragging: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function Coin({ rotation, position }: CoinProps) {
+export function Coin({ rotation, position, setIsDragging }: CoinProps) {
   const [textureError, setTextureError] = useState(false)
   const texture = useLoader(TextureLoader, '/caonabo_logo_nbg.png?height=512&width=512', 
     undefined,
@@ -33,8 +34,16 @@ export function Coin({ rotation, position }: CoinProps) {
     }
   }, [rotation])
 
+  const handlePointerDown = () => {
+    setIsDragging(true)
+  }
+
+  const handlePointerUp = () => {
+    setIsDragging(false)
+  }
+
   return (
-    <group ref={coinRef} position={position}>
+    <group ref={coinRef} position={position} onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} onPointerLeave={handlePointerUp}>
       {/* Front face */}
       <mesh position={[0, 0, 0.1]}>
         <circleGeometry args={[1, 32]} />

@@ -7,7 +7,7 @@ interface OrbitingIconProps {
   rotation: number
   angle: number
   radius: number
-  icon: 'Token' | 'ICO' | 'Roadmap'
+  icon: 'Token' | 'ICO' | 'Roadmap' | ''
   onClick: () => void
   isSelected?: boolean
 }

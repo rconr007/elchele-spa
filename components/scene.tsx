@@ -292,7 +292,7 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
         }}
       >
         <Suspense fallback={null}>
-          <Coin rotation={rotation} setIsDragging={setIsDragging} />
+          <Coin rotation={rotation} setIsDragging={setIsDragging} position={[0, 0, 0]} />
           <OrbitingIcon rotation={rotation} angle={0} radius={1.75} icon="Token" onClick={() => handleIconClick('Token')} />
           <OrbitingIcon rotation={rotation} angle={Math.PI * 2 / 3} radius={1.75} icon="ICO" onClick={() => handleIconClick('ICO')} />
           <OrbitingIcon rotation={rotation} angle={Math.PI * 4 / 3} radius={1.75} icon="Roadmap" onClick={() => handleIconClick('Roadmap')} />

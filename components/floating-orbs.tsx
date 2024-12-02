@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
+type DialogType = 'Token' | 'ICO' | 'Roadmap' | 'GetStarted' | 'LearnMore' | 'ConnectWallet' | 'Cayacoa' | 'Boechio' | 'Guarionex' | null
+
 interface FloatingOrbsProps {
-  onOrbClick: (dialogType: string) => void
+  onOrbClick: (dialogType: DialogType) => void
 }
 
 const caciques = [
@@ -42,7 +44,7 @@ const caciques = [
 
 export function FloatingOrbs({ onOrbClick }: FloatingOrbsProps) {
   const [orbPositions, setOrbPositions] = useState<number[]>(Array(caciques.length).fill(0))
-  const animationRefs = useRef<HTMLDivElement[]>([])
+  const animationRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
     const updateOrbPositions = () => {
@@ -64,6 +66,10 @@ export function FloatingOrbs({ onOrbClick }: FloatingOrbsProps) {
     return () => cancelAnimationFrame(animationId)
   }, [])
 
+  const setRef = (el: HTMLDivElement | null, index: number) => {
+    animationRefs.current[index] = el
+  }
+
   return (
     <div className="absolute bottom-4 right-32">
       <div className="flex gap-8 mb-4">
@@ -74,7 +80,7 @@ export function FloatingOrbs({ onOrbClick }: FloatingOrbsProps) {
           >
             {/* Floating Orb Container */}
             <div
-              ref={el => animationRefs.current[index] = el!}
+              ref={(el) => setRef(el, index)}
               style={{
                 animation: `float ${2 + index * 0.5}s ease-in-out infinite alternate`,
                 animationDelay: `${index * 0.3}s`
@@ -82,7 +88,7 @@ export function FloatingOrbs({ onOrbClick }: FloatingOrbsProps) {
             >
               {/* Orb with Glass Effect */}
               <div 
-                onClick={() => onOrbClick(cacique.dialog)}
+                onClick={() => onOrbClick(cacique.dialog as DialogType)}
                 className="w-24 h-24 rounded-full relative overflow-hidden cursor-pointer transition-transform hover:scale-110 active:scale-95 pointer-events-auto"
                 style={{
                   background: 'linear-gradient(145deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%)',

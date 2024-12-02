@@ -1,6 +1,7 @@
 'use client'
 
 import { X } from 'lucide-react'
+import Image from 'next/image'
 
 interface MemberDialogProps {
   member: {
@@ -46,9 +47,11 @@ export function MemberDialog({ member, isOpen, onClose }: MemberDialogProps) {
 
         <div className="flex flex-col items-center">
           <div className="w-32 h-32 rounded-full overflow-hidden mb-6 border-4 border-blue-500">
-            <img
+            <Image
               src={member.image}
               alt={member.name}
+              width={128}
+              height={128}
               className="w-full h-full object-cover"
             />
           </div>
