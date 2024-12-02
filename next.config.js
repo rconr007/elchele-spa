@@ -1,11 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Enables static HTML export
+  output: 'export',
   images: {
-    unoptimized: true, // Required for static export
+    unoptimized: true,
   },
-  // Base path - update this if you're not hosting at the root of your domain
-  // basePath: '',
+  // Only apply basePath and assetPrefix in production
+  ...(process.env.NODE_ENV === 'production' ? {
+    basePath: '/chele-spa',
+    assetPrefix: '/chele-spa/',
+  } : {}),
+  trailingSlash: true,
 }
 
 module.exports = nextConfig

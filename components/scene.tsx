@@ -7,7 +7,34 @@ import { OrbitingIcon } from './orbiting-icon'
 import { CircularDialog } from './circular-dialog'
 import { Suspense, useState, useEffect, useCallback, useRef, forwardRef, useImperativeHandle } from 'react'
 
-type DialogType = 'Token' | 'ICO' | 'Roadmap' | 'GetStarted' | 'LearnMore' | 'ConnectWallet' | null
+type DialogType = 'Token' | 'ICO' | 'Roadmap' | 'GetStarted' | 'LearnMore' | 'ConnectWallet' | 'Cayacoa' | 'Boechio' | 'Guarionex' | null
+
+const caciques = [
+  {
+    name: 'Cayacoa',
+    title: 'Chief Technology Officer',
+    description: `As our Chief Technology Officer, Cayacoa leads the technological vision of CHELE. 
+    With deep expertise in blockchain architecture and cryptography, he ensures our platform's 
+    security and scalability. His innovative approach to distributed systems has been crucial 
+    in developing our unique consensus mechanism.`
+  },
+  {
+    name: 'Boechio',
+    title: 'Chief Operations Officer',
+    description: `Boechio, our Chief Operations Officer, masterminds the operational excellence 
+    of CHELE. His strategic vision in implementing robust financial systems and ensuring 
+    regulatory compliance has been instrumental in our platform's reliability. His leadership 
+    in risk management and process optimization keeps our operations running smoothly.`
+  },
+  {
+    name: 'Guarionex',
+    title: 'Chief Marketing Officer',
+    description: `Guarionex, serving as our Chief Marketing Officer, brings CHELE's vision to 
+    the global stage. His expertise in digital marketing and community engagement has been 
+    vital in building our strong user base. He leads our efforts in market expansion and 
+    strategic partnerships, ensuring CHELE's position at the forefront of the crypto revolution.`
+  }
+]
 
 export interface SceneRef {
   setActiveDialog: (dialog: DialogType) => void
@@ -94,38 +121,29 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
     setActiveDialog(icon)
   }
 
-  return (
-    <div 
-      className="w-full h-full cursor-grab active:cursor-grabbing"
-      onMouseDown={handleMouseDown}
-    >
-      <Canvas
-        camera={{
-          position: [0, 0, 5],
-          fov: 45
-        }}
-      >
-        <Suspense fallback={null}>
-          <Coin rotation={rotation} position={[0, 0, 0]} />
-          <OrbitingIcon rotation={rotation} angle={0} radius={1.75} icon="Token" onClick={() => handleIconClick('Token')} />
-          <OrbitingIcon rotation={rotation} angle={Math.PI * 2 / 3} radius={1.75} icon="ICO" onClick={() => handleIconClick('ICO')} />
-          <OrbitingIcon rotation={rotation} angle={Math.PI * 4 / 3} radius={1.75} icon="Roadmap" onClick={() => handleIconClick('Roadmap')} />
-          <Environment preset="warehouse" />
-          <ambientLight intensity={0.5} />
-          <spotLight
-            position={[10, 10, 10]}
-            angle={0.15}
-            penumbra={1}
-            intensity={1}
-          />
-        </Suspense>
-      </Canvas>
-      {activeDialog && (
-        <CircularDialog
-          title={activeDialog}
-          onClose={() => setActiveDialog(null)}
-        >
-          {activeDialog === 'Token' && (
+  const getDialogContent = useCallback((dialogType: DialogType) => {
+    // Check if it's a member dialog
+    const member = caciques.find(c => c.name === dialogType)
+    if (member) {
+      return {
+        title: member.name,
+        content: (
+          <div className="text-white">
+            <h3 className="text-2xl font-bold mb-4">{member.title}</h3>
+            <p className="text-lg leading-relaxed whitespace-pre-line">
+              {member.description}
+            </p>
+          </div>
+        )
+      }
+    }
+
+    // Handle other dialog types
+    switch (dialogType) {
+      case 'Token':
+        return {
+          title: 'Token Information',
+          content: (
             <div>
               <h3 className="text-2xl font-bold mb-4 no-select">Token Information</h3>
               <p className="text-lg mb-6 no-select">Our token is designed for seamless transactions and value storage in the digital economy. It offers numerous benefits for users and investors alike.</p>
@@ -138,8 +156,12 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
                 <li>Staking and yield farming opportunities</li>
               </ul>
             </div>
-          )}
-          {activeDialog === 'ICO' && (
+          )
+        }
+      case 'ICO':
+        return {
+          title: 'ICO Details',
+          content: (
             <div>
               <h3 className="text-2xl font-bold mb-4 no-select">ICO Details</h3>
               <p className="text-lg mb-6 no-select">Join our Initial Coin Offering to be part of the next generation of digital finance. Do not miss this opportunity to get in early on a revolutionary project.</p>
@@ -155,8 +177,12 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
                 <li>Hard Cap: $20 million</li>
               </ul>
             </div>
-          )}
-          {activeDialog === 'Roadmap' && (
+          )
+        }
+      case 'Roadmap':
+        return {
+          title: 'Project Roadmap',
+          content: (
             <div>
               <h3 className="text-2xl font-bold mb-4 no-select">Project Roadmap</h3>
               <p className="text-lg mb-6 no-select">Explore our ambitious plans for the future of our cryptocurrency project. We are committed to continuous innovation and expansion.</p>
@@ -171,8 +197,12 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
                 <li>Q2 2025: Launch of Native Blockchain with Improved Scalability</li>
               </ul>
             </div>
-          )}
-          {activeDialog === 'GetStarted' && (
+          )
+        }
+      case 'GetStarted':
+        return {
+          title: 'Getting Started with CHELE',
+          content: (
             <div>
               <h3 className="text-2xl font-bold mb-4 no-select">Getting Started with CHELE</h3>
               <p className="text-lg mb-6 no-select">Welcome to CHELE! Follow these steps to begin your journey into our cryptocurrency ecosystem.</p>
@@ -189,8 +219,12 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
                 <p className="text-blue-400">Need help? Our support team is available 24/7 through our Discord channel.</p>
               </div>
             </div>
-          )}
-          {activeDialog === 'LearnMore' && (
+          )
+        }
+      case 'LearnMore':
+        return {
+          title: 'About CHELE',
+          content: (
             <div>
               <h3 className="text-2xl font-bold mb-4 no-select">About CHELE</h3>
               <p className="text-lg mb-6 no-select">CHELE is revolutionizing the cryptocurrency space with innovative technology and a community-first approach.</p>
@@ -207,8 +241,12 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
                 <p className="text-purple-400">Join our growing ecosystem and be part of the future of finance.</p>
               </div>
             </div>
-          )}
-          {activeDialog === 'ConnectWallet' && (
+          )
+        }
+      case 'ConnectWallet':
+        return {
+          title: 'Connect Your Wallet',
+          content: (
             <div>
               <h3 className="text-2xl font-bold mb-4 no-select">Connect Your Wallet</h3>
               <p className="text-lg mb-6 no-select">Connect your Web3 wallet to access all features of the CHELE platform.</p>
@@ -233,7 +271,50 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
                 <p className="text-green-400">Make sure you have sufficient funds for gas fees before making transactions.</p>
               </div>
             </div>
-          )}
+          )
+        }
+      default:
+        return null
+    }
+  }, [])
+
+  const dialogContent = activeDialog ? getDialogContent(activeDialog) : null
+
+  return (
+    <div 
+      className="w-full h-full cursor-grab active:cursor-grabbing"
+      onMouseDown={handleMouseDown}
+    >
+      <Canvas
+        camera={{
+          position: [0, 0, 5],
+          fov: 45
+        }}
+      >
+        <Suspense fallback={null}>
+          <Coin rotation={rotation} setIsDragging={setIsDragging} />
+          <OrbitingIcon rotation={rotation} angle={0} radius={1.75} icon="Token" onClick={() => handleIconClick('Token')} />
+          <OrbitingIcon rotation={rotation} angle={Math.PI * 2 / 3} radius={1.75} icon="ICO" onClick={() => handleIconClick('ICO')} />
+          <OrbitingIcon rotation={rotation} angle={Math.PI * 4 / 3} radius={1.75} icon="Roadmap" onClick={() => handleIconClick('Roadmap')} />
+          <OrbitingIcon rotation={rotation} angle={Math.PI} radius={1.75} icon="" onClick={() => handleIconClick('Cayacoa')} />
+          <OrbitingIcon rotation={rotation} angle={Math.PI / 3} radius={1.75} icon="" onClick={() => handleIconClick('Boechio')} />
+          <OrbitingIcon rotation={rotation} angle={Math.PI * 5 / 3} radius={1.75} icon="" onClick={() => handleIconClick('Guarionex')} />
+          <Environment preset="warehouse" />
+          <ambientLight intensity={0.5} />
+          <spotLight
+            position={[10, 10, 10]}
+            angle={0.15}
+            penumbra={1}
+            intensity={1}
+          />
+        </Suspense>
+      </Canvas>
+      {dialogContent && (
+        <CircularDialog
+          title={dialogContent.title}
+          onClose={() => setActiveDialog(null)}
+        >
+          {dialogContent.content}
         </CircularDialog>
       )}
     </div>

@@ -7,7 +7,7 @@ body {
 }
 
 .max-w-2xl {
-  max-width: 40rem;
+  max-width: 32rem;
 }
 
 .py-4 {
@@ -30,6 +30,10 @@ body {
 
 .vw-full {
   width: 100vh
+}
+
+.text-3xl {
+  font-size: 3rem;
 }
 
 .caonabo-logo-pos {
@@ -138,23 +142,33 @@ body {
   pointer-events: none;
 }
 
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+.glow-blue:hover {
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+}
+
+.glow-green:hover {
+  text-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+}
+
+.glow-purple:hover {
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
   .text-shadow-sm {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  }
-  .glow-blue:hover {
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
-  }
-
-  .glow-green:hover {
-    text-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
-  }
-
-  .glow-purple:hover {
-    text-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
   }
 }
 
