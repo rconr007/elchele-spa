@@ -13,14 +13,15 @@ export function CircularDialog({ title, onClose, children }: CircularDialogProps
       <div className="bg-black/50 absolute inset-0 animate-fade-in" onClick={onClose}></div>
       <div 
         className={cn(
-          "rounded-full w-[800px] h-[800px] relative z-10 overflow-hidden flex flex-col bg-black/90 animate-dialog-expand",
+          "rounded-full w-[800px] h-[800px] relative z-10 overflow-hidden flex flex-col bg-black/80 animate-dialog-expand",
           "border-[10px] border-[#B97A57]"
         )}
         style={{
-          backgroundImage: 'url(/backgroundIndians.svg)',
+          backgroundImage: 'url(/img/backgroundIndians.svg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundBlendMode: 'overlay'
+          backgroundBlendMode: 'soft-light',
+          backgroundRepeat: 'no-repeat'
         }}
       >
         <div className="flex flex-col h-full px-32 py-24">

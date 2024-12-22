@@ -278,46 +278,49 @@ const Scene = forwardRef<SceneRef>((props, ref) => {
     }
   }, [])
 
-  const dialogContent = activeDialog ? getDialogContent(activeDialog) : null
-
   return (
-    <div 
-      className="w-full h-full cursor-grab active:cursor-grabbing"
-      onMouseDown={handleMouseDown}
-    >
-      <Canvas
-        camera={{
-          position: [0, 0, 5],
-          fov: 45
+    <>
+      <div
+        onMouseDown={handleMouseDown}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          cursor: isDragging ? 'grabbing' : 'grab',
+          touchAction: 'none',
+          WebkitTapHighlightColor: 'transparent'
         }}
       >
-        <Suspense fallback={null}>
-          <Coin rotation={rotation} setIsDragging={setIsDragging} position={[0, 0, 0]} />
-          <OrbitingIcon rotation={rotation} angle={0} radius={1.75} icon="Token" onClick={() => handleIconClick('Token')} />
-          <OrbitingIcon rotation={rotation} angle={Math.PI * 2 / 3} radius={1.75} icon="ICO" onClick={() => handleIconClick('ICO')} />
-          <OrbitingIcon rotation={rotation} angle={Math.PI * 4 / 3} radius={1.75} icon="Roadmap" onClick={() => handleIconClick('Roadmap')} />
-          <OrbitingIcon rotation={rotation} angle={Math.PI} radius={1.75} icon="" onClick={() => handleIconClick('Cayacoa')} />
-          <OrbitingIcon rotation={rotation} angle={Math.PI / 3} radius={1.75} icon="" onClick={() => handleIconClick('Boechio')} />
-          <OrbitingIcon rotation={rotation} angle={Math.PI * 5 / 3} radius={1.75} icon="" onClick={() => handleIconClick('Guarionex')} />
-          <Environment preset="warehouse" />
-          <ambientLight intensity={0.5} />
-          <spotLight
-            position={[10, 10, 10]}
-            angle={0.15}
-            penumbra={1}
-            intensity={1}
-          />
-        </Suspense>
-      </Canvas>
-      {dialogContent && (
+        <Canvas
+          camera={{ position: [0, 0, 5], fov: 45 }}
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'transparent'
+          }}
+        >
+          <Suspense fallback={null}>
+            <Coin rotation={rotation} setIsDragging={setIsDragging} position={[0, 0, 0]} />
+            <OrbitingIcon rotation={rotation} angle={0} radius={1.75} icon="Token" onClick={() => handleIconClick('Token')} />
+            <OrbitingIcon rotation={rotation} angle={Math.PI * 2 / 3} radius={1.75} icon="ICO" onClick={() => handleIconClick('ICO')} />
+            <OrbitingIcon rotation={rotation} angle={Math.PI * 4 / 3} radius={1.75} icon="Roadmap" onClick={() => handleIconClick('Roadmap')} />
+            <OrbitingIcon rotation={rotation} angle={Math.PI} radius={1.75} icon="" onClick={() => handleIconClick('Cayacoa')} />
+            <OrbitingIcon rotation={rotation} angle={Math.PI / 3} radius={1.75} icon="" onClick={() => handleIconClick('Boechio')} />
+            <OrbitingIcon rotation={rotation} angle={Math.PI * 5 / 3} radius={1.75} icon="" onClick={() => handleIconClick('Guarionex')} />
+            <Environment preset="warehouse" />
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} />
+          </Suspense>
+        </Canvas>
+      </div>
+      {activeDialog && (
         <CircularDialog
-          title={dialogContent.title}
+          title={getDialogContent(activeDialog)?.title || ''}
           onClose={() => setActiveDialog(null)}
         >
-          {dialogContent.content}
+          {getDialogContent(activeDialog)?.content}
         </CircularDialog>
       )}
-    </div>
+    </>
   )
 })
 

@@ -51,7 +51,7 @@ export function TickerBanner({ text, speed = 103 }: TickerBannerProps) {
     <div 
       className="fixed h-[100px] bg-black overflow-hidden"
       style={{ 
-        bottom: '50%',
+        bottom: '65%',
         right: '-48%',
         width: '150%',
         transform: 'rotate(-30deg) translateY(50%)',
